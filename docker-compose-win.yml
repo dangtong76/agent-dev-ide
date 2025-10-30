@@ -2,6 +2,7 @@ name: "agent-ai-development-ide"
 services:
   code-server:
     image: dangtong76/agent-ai-ide:latest
+    hostname: agent-ai-ide
     # runtime: nvidia
     # deploy:
     #   resources:
