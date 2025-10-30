@@ -1,0 +1,38 @@
+name: "agent-ai-development-ide"
+services:
+  code-server:
+    image: dangtong76/agent-ai-ide:latest
+    # image: linuxserver/code-server:arm64v8-latest
+    container_name: "ide"
+    environment:
+      AUTH: none
+      PUID: 0
+      PGID: 1000
+      DEFAULT_WORKSPACE: /code
+      TZ: Asia/Seoul
+      EXTENSIONS_GALLERY: |
+        {
+        "serviceUrl": "https://marketplace.visualstudio.com/_apis/public/gallery",
+        "itemUrl": "https://marketplace.visualstudio.com/items",
+        "cacheUrl": "https://vscode.blob.core.windows.net/gallery/index",
+        "controlUrl": "https://az764295.vo.msecnd.net/extensions/marketplace.json"
+        }
+    env_file:
+      - .env
+    working_dir: /code
+    ports:
+      - "8080:8080" # web service port
+      - "8444:8443" # vscode service port
+      - "11434:11434" # ollama service port
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - agent-ai-src:/code/agent-ai-src
+      - agent-ai-vscode:/config
+      - ./config.yaml:/config/.config/code-server/config.yaml:ro
+volumes:
+  agent-ai-src:
+    external: true
+    name: agent-ai-src
+  agent-ai-vscode:
+    external: true
+    name: agent-ai-vscode

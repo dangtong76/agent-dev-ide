@@ -1,0 +1,41 @@
+name: "agent-ai-development-ide"
+services:
+  code-server:
+    image: dangtong76/agent-ai-ide:arm64
+    # image: linuxserver/code-server:arm64v8-latest
+    runtime: nvidia
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - capabilities: [gpu]
+    container_name: "ide"
+    environment:
+      NVIDIA_VISIBLE_DEVICES: all
+      AUTH: none
+      PUID: 0
+      PGID: 1000
+      DEFAULT_WORKSPACE: /code
+      TZ: Asia/Seoul
+    # 확인 방법
+    # nvidia-smi
+    # python -c "import torch; print(torch.cuda.is_available())"
+    env_file:
+      - .env
+    working_dir: /code
+    ports:
+      - "8080:8080" # web service port
+      - "8444:8443" # vscode service port
+      - "11434:11434" # ollama service port
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - agent-ai-src:/code/agent-ai-src
+      - agent-ai-vscode:/config
+      - ./config.yaml:/config/.config/code-server/config.yaml:ro
+volumes:
+  agent-ai-src:
+    external: true
+    name: agent-ai-src
+  agent-ai-vscode:
+    external: true
+    name: agent-ai-vscode
