@@ -20,8 +20,6 @@ services:
     # 확인 방법
     # nvidia-smi
     # python -c "import torch; print(torch.cuda.is_available())"
-    env_file:
-      - .env
     working_dir: /code
     ports:
       - "8080:8080" # web service port
