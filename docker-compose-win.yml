@@ -2,15 +2,15 @@ name: "agent-ai-development-ide"
 services:
   code-server:
     image: dangtong76/agent-ai-ide:latest
-    runtime: nvidia
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - capabilities: [gpu]
+    # runtime: nvidia
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - capabilities: [gpu]
     container_name: "ide"
     environment:
-      NVIDIA_VISIBLE_DEVICES: all
+      # NVIDIA_VISIBLE_DEVICES: all
       AUTH: none
       PUID: 0
       PGID: 1000
