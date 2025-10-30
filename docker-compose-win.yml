@@ -1,8 +1,7 @@
 name: "agent-ai-development-ide"
 services:
   code-server:
-    image: dangtong76/agent-ai-ide:arm64
-    # image: linuxserver/code-server:arm64v8-latest
+    image: dangtong76/agent-ai-ide:latest
     runtime: nvidia
     deploy:
       resources:
